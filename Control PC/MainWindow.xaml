@@ -1,0 +1,188 @@
+﻿<src:WindowBase 
+        xmlns:src="clr-namespace:VentanaBase;assembly=VentanaBase"
+        x:Class="Control_PC.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    mc:Ignorable="d"
+        ResizeMode="NoResize"
+        WindowState="Normal"
+        Title="MainWindow" Height="600" Width="350">
+    <Window.Resources>
+        <FontFamily x:Key="BiotifRegular">fonts/biotif_regular.ttf</FontFamily>
+
+        <LinearGradientBrush x:Key="GradientBrush" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#020060" Offset="0"/>
+            <GradientStop Color="#3e95ef" Offset="1"/>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="GradientBrushMouseOver" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#0602b5" Offset="0"/>
+            <GradientStop Color="#78b6f7" Offset="1"/>
+        </LinearGradientBrush>
+
+        <DropShadowEffect 
+            x:Key="LightShadow" 
+            Color="White"
+            BlurRadius="21" 
+            ShadowDepth="10" 
+            Direction="120" 
+            Opacity="1"/>
+        <DropShadowEffect 
+            x:Key="DarkShadow" 
+            Color="#cdcaca"
+            BlurRadius="20" 
+            ShadowDepth="11" 
+            Direction="320" 
+            Opacity="0.5"/>
+        <DropShadowEffect 
+            x:Key="CardViewShadow" 
+            BlurRadius="2" 
+            ShadowDepth="3" 
+            Direction="225" 
+            Opacity="0.4"/>
+
+        <Style x:Key="Stop" TargetType="materialDesign:Card">
+            <Setter Property="materialDesign:ElevationAssist.Elevation" Value="Dp4"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="False">
+                    <Setter Property="Background" Value="White"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#f1f1f1"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="CardView" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#f9f9fd"/>
+                </Trigger>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="Background" Value="#ececf1"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ToggleButtonStyle1" TargetType="{x:Type ToggleButton}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <Border x:Name="on" Width="40" Height="40" Background="{StaticResource GradientBrush}" CornerRadius="25,25,25,25">
+                                <Image Source="drawable/bluetooth_icon.png" Width="30" Height="30"/>
+                            </Border>
+                        </StackPanel>
+                        <ControlTemplate.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsChecked" Value="False"/>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="on" Property="Margin" Value="0, 0, 0, 0"/>
+                                <Setter TargetName="on" Property="Background" Value="#878585"/>
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsChecked" Value="False"/>
+                                    <Condition Property="IsMouseOver" Value="False"/>
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="on" Property="Margin" Value="0, 0, 0, 0"/>
+                                <Setter TargetName="on" Property="Background" Value="#FF696969"/>
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsChecked" Value="true"/>
+                                    <Condition Property="IsMouseOver" Value="true"/>
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="on" Property="Margin" Value="60, 0, 0, 0"/>
+                                <Setter TargetName="on" Property="Background" Value="{StaticResource GradientBrushMouseOver}"/>
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsChecked" Value="true"/>
+                                    <Condition Property="IsMouseOver" Value="False"/>
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="on" Property="Margin" Value="60, 0, 0, 0"/>
+                                <Setter TargetName="on" Property="Background" Value="{StaticResource GradientBrush}"/>
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid Background="#f1f1f1">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel  x:Name="SelectorPanel" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 50, 0, 10">
+            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" TextWrapping="Wrap" Text="OFF" VerticalAlignment="Center" Margin="0, 0, 10, 0" FontFamily="Biotif"/>
+            <Border CornerRadius="25" Effect="{StaticResource CardViewShadow}" Width="110" Height="50" Background="White">
+                <ToggleButton 
+                    x:Name="Selector"
+                    HorizontalAlignment="Center"
+                    Width="100"
+                    Height="40"
+                    Margin="1"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource ToggleButtonStyle1}" 
+                    Unchecked="Selector_Checked"
+                    Checked="Selector_Checked"/>
+            </Border>
+            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" TextWrapping="Wrap" Text="ON" VerticalAlignment="Center" Margin="10, 0, 0, 0" FontFamily="Biotif" />
+        </StackPanel>
+        <Border x:Name="BorderListView" Visibility="Collapsed" Background="#e7e6e6" CornerRadius="15" Grid.Row="1" Margin="0, 30, 0, 30" BorderThickness="0" HorizontalAlignment="Center">
+            <StackPanel Orientation="Vertical">
+                <TextBlock FontWeight="Bold" Foreground="DimGray" FontFamily="Biotif" FontSize="15" Text="Dispositivos Disponibles" Margin="0, 20, 0, 0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <ListView Background="Transparent" x:Name="DevicesListView" Padding="4, 10, 0, 8"
+                          SelectionMode="Single" SelectionChanged="DevicesListView_SelectionChanged"
+                          Width="Auto" BorderThickness="0" HorizontalAlignment="Center">
+
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem" BasedOn="{StaticResource ListViewItemStyle}"/>
+                    </ListView.ItemContainerStyle>
+                    <ListView.View>
+                        <GridView>
+                            <GridView.ColumnHeaderContainerStyle>
+                                <Style TargetType="GridViewColumnHeader">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </Style>
+                            </GridView.ColumnHeaderContainerStyle>
+                            <GridViewColumn>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Border Style="{StaticResource CardView}" Effect="{StaticResource CardViewShadow}" Margin="4" Width="240" Height="70" CornerRadius="10">
+                                            <StackPanel Background="Transparent" Orientation="Horizontal">
+                                                <Image Source="drawable/bluetooth.png" Width="50" Height="50" Margin="10, 10, 10, 10"/>
+                                                <TextBlock Foreground="Black" FontFamily="Biotif" FontSize="17" Text="{Binding DeviceName}" Margin="5" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+
+                </ListView>
+            </StackPanel>
+        </Border>
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <materialDesign:Card materialDesign:ElevationAssist.Elevation="Dp4" Padding="5" Height="50" Width="50" Background="White" UniformCornerRadius="25"  Visibility="Collapsed" x:Name="ResultGrid" Grid.Row="3">
+            <ProgressBar Height="40" Width="40" Style="{StaticResource MaterialDesignCircularProgressBar}" Value="0" IsIndeterminate="True" x:Name="ResultProgress"/>
+        </materialDesign:Card>
+
+        <materialDesign:Card x:Name="ConnectedBtn" MouseLeftButtonUp="ConnectedBtn_MouseLeftButtonUp" Visibility="Collapsed" Style="{StaticResource Stop}" materialDesign:ElevationAssist.Elevation="Dp4" Padding="5" Height="90" Width="100" UniformCornerRadius="5" Grid.Row="3">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Conectado" FontSize="15" FontFamily="biotif" HorizontalAlignment="Center"/>
+                <Image Source="drawable/bluetooth.png" Height="50" Width="50" VerticalAlignment="Center"/>
+            </StackPanel>
+        </materialDesign:Card>
+        </Grid>
+</src:WindowBase>
